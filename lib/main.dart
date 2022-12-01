@@ -54,6 +54,7 @@ class _ExamplePageState extends State<ExamplePage> {
         slivers: [
           SliverToBoxAdapter(
             child: CreateBreadCrumbCircle(
+              crumbWidth: 60,
               selectPosition: reference,
               labelList: listaRerefencias,
             ),

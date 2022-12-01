@@ -50,7 +50,7 @@ class CreateBreadCrumbCircle extends StatefulWidget {
 class _CreateBreadCrumbCircleState extends State<CreateBreadCrumbCircle> {
   List<WidgetCrumb> crumbs = [];
 
-  _createCrumbs(double widthScreen) {
+  _createCrumbs() {
     crumbs = [];
     for (var i = 0; i < widget.labelList.length; i++) {
       var crumbItem = WidgetCrumb(
@@ -88,7 +88,8 @@ class _CreateBreadCrumbCircleState extends State<CreateBreadCrumbCircle> {
   void _animateToIndex() async {
     findIndexCrumb(widget.selectPosition, crumbs);
     await _controller.animateTo(
-      indexCrumb * (widget.crumbWidth ?? 80),
+      //indexCrumb * (widget.crumbWidth ?? 80),
+      indexCrumb * crumbs[indexCrumb].crumbWidth!,
       duration: const Duration(milliseconds: 800),
       curve: Curves.linear,
     );
@@ -97,7 +98,16 @@ class _CreateBreadCrumbCircleState extends State<CreateBreadCrumbCircle> {
   @override
   void initState() {
     super.initState();
-    _createCrumbs(500);
+    _createCrumbs();
+  }
+
+  @override
+  void didUpdateWidget(covariant CreateBreadCrumbCircle oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selectPosition != widget.selectPosition) {
+      _createCrumbs();
+      _animateToIndex();
+    }
   }
 
   @override
@@ -121,8 +131,6 @@ class _CreateBreadCrumbCircleState extends State<CreateBreadCrumbCircle> {
                 controller: _controller,
                 itemCount: crumbs.length,
                 itemBuilder: (context, i) {
-                  _createCrumbs(500);
-                  _animateToIndex();
                   return crumbs[i];
                 },
               ),
