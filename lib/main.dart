@@ -38,7 +38,7 @@ class _ExamplePageState extends State<ExamplePage> {
     "seguradora",
     "cliente",
     "outros 1",
-    "outros 2 fdfafdsafafdas",
+    "outros 2 qualquer coisa",
     "confirmar",
   ];
 
@@ -54,7 +54,6 @@ class _ExamplePageState extends State<ExamplePage> {
         slivers: [
           SliverToBoxAdapter(
             child: CreateBudgetBreadCrumb(
-              crumbWidth: 80,
               selectPosition: reference,
               labelList: listaRerefencias,
             ),
@@ -75,7 +74,7 @@ class _ExamplePageState extends State<ExamplePage> {
                         setState(() {
                           reference = listaRerefencias[index];
                         });
-                        print(index);
+                        //print(index);
                       },
                       icon: const Icon(
                         Icons.arrow_circle_left,
@@ -87,7 +86,7 @@ class _ExamplePageState extends State<ExamplePage> {
                         setState(() {
                           reference = listaRerefencias[index];
                         });
-                        print(index);
+                        //print(index);
                       },
                       icon: const Icon(
                         Icons.arrow_circle_right,
@@ -103,40 +102,3 @@ class _ExamplePageState extends State<ExamplePage> {
     );
   }
 }
-
-/*
-CustomScrollView(
-        slivers: [
-          const SliverToBoxAdapter(
-            child: CreateBudgetBreadCrumb(),
-          ),
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Column(
-              children: const [
-                Expanded(
-                  child: AnimatedSwitcher(
-                      duration: Duration(milliseconds: 400), child: Center()),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-*/
-
-
-/*
-const CreateBudgetBreadCrumb(
-        crumbWidth: 60,
-        labelList: [
-          "informações",
-          "oficina",
-          "seguradora",
-          "cliente",
-          "outros 1",
-          "outros 2 fdfafdsafafdas",
-          "confirmar",
-        ],
-      ),
-*/

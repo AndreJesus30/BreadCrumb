@@ -6,7 +6,6 @@ class WidgetCrumb extends StatefulWidget {
     required this.selected,
     required this.markText,
     required this.labelText,
-    required this.globalKey,
     this.crumbWidth,
     this.mainAxisAlignment,
     this.bgColor,
@@ -14,12 +13,14 @@ class WidgetCrumb extends StatefulWidget {
     this.textColor,
     this.sizeMarkText,
     this.sizeLabelText,
+    this.spaceBetween,
+    this.radius,
+    this.fontWeight,
   }) : super(key: key);
 
-  final bool selected;
+  bool selected;
   final String markText;
   final String labelText;
-  final GlobalKey globalKey;
   final double? crumbWidth;
   final MainAxisAlignment? mainAxisAlignment;
   final Color? bgColor;
@@ -27,22 +28,21 @@ class WidgetCrumb extends StatefulWidget {
   final Color? textColor;
   final double? sizeMarkText;
   final double? sizeLabelText;
+  final double? spaceBetween;
+  final double? radius;
+  final FontWeight? fontWeight;
 
   @override
   State<WidgetCrumb> createState() => _WidgetCrumbState();
 }
 
 class _WidgetCrumbState extends State<WidgetCrumb> {
-  final double widthContainer = 80;
-
   @override
   Widget build(BuildContext context) {
-    //debugPrint(widget.globalKey.currentState.toString());
-    return Container(
-      key: widget.globalKey,
-      width: widget.crumbWidth ?? widthContainer,
+    return SizedBox(
+      width: widget.crumbWidth,
       child: Column(
-        mainAxisAlignment: widget.mainAxisAlignment ?? MainAxisAlignment.center,
+        mainAxisAlignment: widget.mainAxisAlignment!,
         children: [
           Stack(
             alignment: Alignment.center,
@@ -50,33 +50,34 @@ class _WidgetCrumbState extends State<WidgetCrumb> {
               Padding(
                 padding: const EdgeInsets.only(top: 5.0),
                 child: Container(
-                  color: Colors.black,
-                  width: widget.crumbWidth ?? widthContainer,
+                  color: widget.selected ? Colors.deepOrange : Colors.black,
+                  width: widget.crumbWidth,
                   height: 3,
                 ),
               ),
               CircleAvatar(
-                radius: 20,
-                backgroundColor: widget.bgColor ?? Colors.cyan,
+                radius: widget.radius,
+                backgroundColor:
+                    widget.selected ? Colors.yellow : widget.bgColor,
                 child: Text(
                   widget.markText,
                   style: TextStyle(
-                    fontSize: widget.sizeMarkText ?? 12,
-                    fontWeight: FontWeight.w600,
+                    fontSize: widget.sizeMarkText,
+                    fontWeight: widget.fontWeight,
                     color: widget.markColor ?? Colors.black,
                   ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: widget.spaceBetween),
           Text(
             widget.labelText,
             softWrap: false,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: widget.sizeLabelText ?? 11,
-              fontWeight: FontWeight.w600,
+              fontSize: widget.sizeLabelText,
+              fontWeight: widget.fontWeight,
               color: widget.textColor ?? Colors.black,
             ),
           ),
@@ -85,67 +86,3 @@ class _WidgetCrumbState extends State<WidgetCrumb> {
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-
-// Widget buildItem(
-//   //BuildContext context,
-//   bool selected,
-//   String markText,
-//   String labelText,
-//   Key? key, {
-//   double? crumbWidth,
-//   MainAxisAlignment? mainAxisAlignment,
-//   Color? bgColor,
-//   Color? markColor,
-//   Color? textColor,
-//   double? sizeMarkText,
-//   double? sizeLabelText,
-// }) {
-//   double widthContainer = 80;
-//   return Container(
-//     key: key,
-//     width: crumbWidth ?? widthContainer,
-//     child: Column(
-//       mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
-//       children: [
-//         Stack(
-//           alignment: Alignment.center,
-//           children: [
-//             Padding(
-//               padding: const EdgeInsets.only(top: 5.0),
-//               child: Container(
-//                 color: Colors.black,
-//                 width: crumbWidth ?? widthContainer,
-//                 height: 3,
-//               ),
-//             ),
-//             CircleAvatar(
-//               radius: 20,
-//               backgroundColor: bgColor ?? Colors.cyan,
-//               child: Text(
-//                 markText,
-//                 style: TextStyle(
-//                   fontSize: sizeMarkText ?? 12,
-//                   fontWeight: FontWeight.w600,
-//                   color: markColor ?? Colors.black,
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//         const SizedBox(height: 8),
-//         Text(
-//           labelText,
-//           softWrap: false,
-//           textAlign: TextAlign.center,
-//           style: TextStyle(
-//             fontSize: sizeLabelText ?? 11,
-//             fontWeight: FontWeight.w600,
-//             color: textColor ?? Colors.black,
-//           ),
-//         ),
-//       ],
-//     ),
-//   );
-// }
