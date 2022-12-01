@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:estudo_bread_crumb/widget_crumb.dart';
 
-class CreateBudgetBreadCrumb extends StatefulWidget {
-  const CreateBudgetBreadCrumb({
+class CreateBreadCrumbCircle extends StatefulWidget {
+  const CreateBreadCrumbCircle({
     Key? key,
     required this.labelList,
     required this.selectPosition,
     this.heightContainer,
+    this.bgColorContainer,
     this.crumbWidth,
     this.markText,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.bgColor = Colors.cyan,
     this.markColor = Colors.black,
     this.textColor = Colors.black,
+    this.lineColor = Colors.black,
+    this.selectLineColor = Colors.deepOrange,
+    this.selectBgCircleColor = Colors.yellow,
     this.sizeMark = 12,
     this.sizeLabel = 11,
     this.spaceBetween = 8,
@@ -21,6 +25,7 @@ class CreateBudgetBreadCrumb extends StatefulWidget {
   }) : super(key: key);
 
   final double? heightContainer;
+  final Color? bgColorContainer;
   final List<String> labelList;
   final String selectPosition;
   final double? crumbWidth;
@@ -29,6 +34,9 @@ class CreateBudgetBreadCrumb extends StatefulWidget {
   final Color? bgColor;
   final Color? markColor;
   final Color? textColor;
+  final Color? lineColor;
+  final Color? selectLineColor;
+  final Color? selectBgCircleColor;
   final double? sizeMark;
   final double? sizeLabel;
   final double? spaceBetween;
@@ -36,10 +44,10 @@ class CreateBudgetBreadCrumb extends StatefulWidget {
   final FontWeight? fontWeight;
 
   @override
-  State<CreateBudgetBreadCrumb> createState() => _CreateBudgetBreadCrumbState();
+  State<CreateBreadCrumbCircle> createState() => _CreateBreadCrumbCircleState();
 }
 
-class _CreateBudgetBreadCrumbState extends State<CreateBudgetBreadCrumb> {
+class _CreateBreadCrumbCircleState extends State<CreateBreadCrumbCircle> {
   List<WidgetCrumb> crumbs = [];
 
   _createCrumbs(double widthScreen) {
@@ -57,6 +65,9 @@ class _CreateBudgetBreadCrumbState extends State<CreateBudgetBreadCrumb> {
         sizeLabelText: widget.sizeLabel,
         sizeMarkText: widget.sizeMark,
         textColor: widget.textColor,
+        lineColor: widget.lineColor,
+        selectLineColor: widget.selectLineColor,
+        selectBgCircleColor: widget.selectBgCircleColor,
         spaceBetween: widget.spaceBetween,
         radius: widget.radius,
         fontWeight: widget.fontWeight,
@@ -66,7 +77,6 @@ class _CreateBudgetBreadCrumbState extends State<CreateBudgetBreadCrumb> {
   }
 
   final ScrollController _controller = ScrollController();
-  //double _width = 80;
   var indexCrumb = 0;
 
   int findIndexCrumb(dynamic selectPosition, List<WidgetCrumb> crumbs) {
@@ -77,7 +87,6 @@ class _CreateBudgetBreadCrumbState extends State<CreateBudgetBreadCrumb> {
 
   void _animateToIndex() async {
     findIndexCrumb(widget.selectPosition, crumbs);
-    //_width = widget.crumbWidth ?? _width;
     await _controller.animateTo(
       indexCrumb * (widget.crumbWidth ?? 80),
       duration: const Duration(milliseconds: 800),
@@ -93,14 +102,13 @@ class _CreateBudgetBreadCrumbState extends State<CreateBudgetBreadCrumb> {
 
   @override
   Widget build(BuildContext context) {
-    //var widthScreen = MediaQuery.of(context).size.width;
     return Material(
       type: MaterialType.card,
       child: Container(
         height: widget.heightContainer ??
             widget.radius! * 2 + widget.sizeLabel! + widget.spaceBetween! + 40,
         decoration: BoxDecoration(
-          color: Colors.indigoAccent,
+          color: widget.bgColorContainer ?? Colors.indigoAccent,
           border: Border.all(),
         ),
         child: LayoutBuilder(builder: (context, constraints) {

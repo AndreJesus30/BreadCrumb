@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class WidgetCrumb extends StatefulWidget {
-  WidgetCrumb({
+  const WidgetCrumb({
     Key? key,
     required this.selected,
     required this.markText,
@@ -11,6 +11,9 @@ class WidgetCrumb extends StatefulWidget {
     this.bgColor,
     this.markColor,
     this.textColor,
+    this.lineColor,
+    this.selectLineColor,
+    this.selectBgCircleColor,
     this.sizeMarkText,
     this.sizeLabelText,
     this.spaceBetween,
@@ -18,7 +21,7 @@ class WidgetCrumb extends StatefulWidget {
     this.fontWeight,
   }) : super(key: key);
 
-  bool selected;
+  final bool selected;
   final String markText;
   final String labelText;
   final double? crumbWidth;
@@ -26,6 +29,9 @@ class WidgetCrumb extends StatefulWidget {
   final Color? bgColor;
   final Color? markColor;
   final Color? textColor;
+  final Color? lineColor;
+  final Color? selectLineColor;
+  final Color? selectBgCircleColor;
   final double? sizeMarkText;
   final double? sizeLabelText;
   final double? spaceBetween;
@@ -50,21 +56,24 @@ class _WidgetCrumbState extends State<WidgetCrumb> {
               Padding(
                 padding: const EdgeInsets.only(top: 5.0),
                 child: Container(
-                  color: widget.selected ? Colors.deepOrange : Colors.black,
+                  color: widget.selected
+                      ? widget.selectLineColor
+                      : widget.lineColor,
                   width: widget.crumbWidth,
                   height: 3,
                 ),
               ),
               CircleAvatar(
                 radius: widget.radius,
-                backgroundColor:
-                    widget.selected ? Colors.yellow : widget.bgColor,
+                backgroundColor: widget.selected
+                    ? widget.selectBgCircleColor
+                    : widget.bgColor,
                 child: Text(
                   widget.markText,
                   style: TextStyle(
                     fontSize: widget.sizeMarkText,
                     fontWeight: widget.fontWeight,
-                    color: widget.markColor ?? Colors.black,
+                    color: widget.markColor,
                   ),
                 ),
               ),

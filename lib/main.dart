@@ -53,7 +53,7 @@ class _ExamplePageState extends State<ExamplePage> {
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: CreateBudgetBreadCrumb(
+            child: CreateBreadCrumbCircle(
               selectPosition: reference,
               labelList: listaRerefencias,
             ),
